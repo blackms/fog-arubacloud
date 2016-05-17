@@ -20,7 +20,8 @@ module Fog
                   :FirstExecutionTime => data[:dateStart],
                   :LastExecutionTime => data[:endDate],
                   :OperationType => data[:OperationType],
-                  :ServerID => data (:ServerId),
+                  :ServerID => data[:ServerId],
+                  :ScheduledPlanStatus => 'Enabled'
               }
           )
           options = {
@@ -37,7 +38,7 @@ module Fog
           if response['Success']
             response
           else
-            raise Fog::ArubaCloud::Errors::RequestError.new("Error during the Scheduled Operation creation. Object: \n#{body}\nError: \n#{response}")
+            raise Fog::ArubaCloud::Errors::RequestError.new("Error during the Scheduled Operation creation.")
           end
         end # create_scheduled_operation
         class Mock
