@@ -25,7 +25,7 @@ module Fog
                                 :BalanceType => data[:balancetype],
                                 :Certificate => data[:certificate],
                                 :CreationDate => data[:creationdate],
-                                :ID => data[:id],
+                                :ID => data[:ruleid],
                                 :InstancePort => data[:instanceport],
                                 :LoadBalancerPort => data[:loadbalancerport],
                                 :Protocol => data[:protocol]
