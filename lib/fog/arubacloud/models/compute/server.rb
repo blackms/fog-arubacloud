@@ -279,7 +279,22 @@ module Fog
 
         def disable_loadbalancer
           requires :id
-          service.disable_loadbalancer(:id)
+          service.disable_loadbalancer(id)
+        end
+
+        def create_custom_template
+          requires :appliancetypeid, :architecturetypeid, :osfamilyid, :osversion, :revision, :defaultvalue, :maxvalue, :minvalue, :resourcetype, :templateboundid,:templatedescription, :templateexternaldescription, :templatepassword, :templateusername, :virtualmachineid
+          service.create_custom_template(appliancetypeid, architecturetypeid, osfamilyid, osversion, revision, defaultvalue, maxvalue, minvalue, resourcetype, templateboundid, templatedescription, templateexternaldescription, templatepassword, templateusername, virtualmachineid)
+        end
+
+        def edit_custom_template
+          requires :appliancetypeid, :architecturetypeid, :osfamilyid, :osversion, :revision, :defaultvalue, :maxvalue, :minvalue, :resourcetype, :templateboundid,:templatedescription, :templateexternaldescription, :templatepassword, :templateusername, :virtualmachineid
+          service.edit_custom_template(appliancetypeid, architecturetypeid, osfamilyid, osversion, revision, defaultvalue, maxvalue, minvalue, resourcetype, templateboundid, templatedescription, templateexternaldescription, templatepassword, templateusername, virtualmachineid)
+        end
+
+        def delete_custom_template
+          requires :id
+          service.delete_custom_template(id)
         end
 
       end

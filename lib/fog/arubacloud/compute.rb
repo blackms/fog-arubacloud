@@ -40,6 +40,8 @@ module Fog
       model      :schedule
       collection :loadbalancers
       model      :loadbalancer
+      collection :custom_templates
+      model      :custom_template
 
       # Requests
       request_path 'fog/arubacloud/requests/compute'
@@ -79,6 +81,10 @@ module Fog
       request :get_notifications
       request :add_contact
       request :remove_contact
+      request :create_custom_template
+      request :edit_custom_template
+      request :delete_custom_template
+      request :get_custom_templates
 
       # Mock class to run a fake instance of the Service with no real connections.
       class Mock < Fog::ArubaCloud::Service
