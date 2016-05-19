@@ -42,6 +42,8 @@ module Fog
       model      :loadbalancer
       collection :custom_templates
       model      :custom_template
+      collection :shared_storages
+      model      :shared_storage
 
       # Requests
       request_path 'fog/arubacloud/requests/compute'
@@ -85,6 +87,11 @@ module Fog
       request :edit_custom_template
       request :delete_custom_template
       request :get_custom_templates
+      request :get_shared_storage
+      request :create_shared_storage
+      request :edit_shared_storage
+      request :delete_shared_storage
+      request :rename_shared_storage
 
       # Mock class to run a fake instance of the Service with no real connections.
       class Mock < Fog::ArubaCloud::Service
