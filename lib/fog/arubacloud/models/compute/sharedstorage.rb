@@ -12,13 +12,13 @@ require 'fog/arubacloud/error'
 module Fog
   module Compute
     class ArubaCloud
-      class Shared_Storage < Fog::Model
+      class SharedStorage < Fog::Model
         identity :id, :aliases => 'id'
 
         attribute :quantity, :aliases => 'quantity'
         attribute :value, :aliases => 'value'
         attribute :sharedstoragename, :aliases => 'sharedstoragename'
-        attribute :sharedstorageprotocoltype => 'sharedstorageprotocoltype'
+        attribute :sharedstorageprotocoltype
 
         def initialize(attributes = {})
           @service = attributes[:service]

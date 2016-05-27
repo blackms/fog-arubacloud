@@ -14,7 +14,7 @@ module Fog
   module Compute
     class ArubaCloud
       class Real
-        def edit_shared_storage(data)
+        def delete_shared_storage(data)
           body = self.body('SetEnqueueRemoveSharedStorage').merge(
               {
                   :SharedStorage => {

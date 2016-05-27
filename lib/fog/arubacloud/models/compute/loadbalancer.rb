@@ -5,8 +5,8 @@
 # LICENSE: MIT (http://opensource.org/licenses/MIT)
 #
 
-require 'Fog/core/model'
-require 'Fog/arubacloud/error'
+require 'fog/core/model'
+require 'fog/arubacloud/error'
 
 module Fog
   module Compute

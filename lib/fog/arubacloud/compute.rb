@@ -42,8 +42,8 @@ module Fog
       model      :loadbalancer
       collection :custom_templates
       model      :custom_template
-      collection :shared_storages
-      model      :shared_storage
+      collection :sharedstorages
+      model      :sharedstorage
 
       # Requests
       request_path 'fog/arubacloud/requests/compute'

@@ -5,7 +5,7 @@
 # LICENSE: MIT (http://opensource.org/licenses/MIT)
 #
 
-require '/fog/core/collection'
+require 'fog/core/collection'
 require 'fog/arubacloud/models/compute/loadbalancer'
 
 

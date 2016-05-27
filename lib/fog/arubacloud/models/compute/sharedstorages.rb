@@ -6,13 +6,13 @@
 #
 
 require 'fog/core/collection'
-require 'fog/arubacloud/models/compute/shared_storages'
+require 'fog/arubacloud/models/compute/sharedstorages'
 
 module Fog
   module Compute
     class ArubaCloud
-      class Shared_Storages < Fog::Collection
-        model Fog::Compute::ArubaCloud::Shared_Storages
+      class SharedStorages < Fog::Collection
+        model Fog::Compute::ArubaCloud::SharedStorage
       end
     end
   end

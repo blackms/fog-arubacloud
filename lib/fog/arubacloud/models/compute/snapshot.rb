@@ -5,7 +5,7 @@
 # LICENSE: MIT (http://opensource.org/licenses/MIT)
 #
 
-require 'fog/compute/models/snapshot'
+require 'fog/arubacloud/models/compute/snapshot'
 require 'fog/arubacloud/error'
 
 module Fog
