@@ -12,7 +12,7 @@ module Fog
   module Compute
     class ArubaCloud
       class Snapshots < Fog::Collection
-        model Fog::Compute::ArubaCloud::Snapshots
+        model Fog::Compute::ArubaCloud::Snapshot
       end
     end
   end

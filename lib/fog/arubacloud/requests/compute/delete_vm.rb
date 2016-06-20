@@ -32,6 +32,10 @@ module Fog
 
       class Mock
         def delete_vm(id)
+          unless id
+            raise Fog::ArubaCloud::Errors::InvalidParameterValue.new('InvalidParameterValue => Server ID must be specified.')
+          end
+
           self.servers.select!{|s| s.id.eql?(id)}
           response = Excon::Response.new
           response.status = 200

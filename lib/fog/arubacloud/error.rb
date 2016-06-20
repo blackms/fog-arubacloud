@@ -59,6 +59,10 @@ module Fog
 
       end
 
+      class InvalidParameterValue < Error
+
+      end
+
       class InvalidStateException < ::RuntimeError
         attr_reader :desired_state
         attr_reader :current_state

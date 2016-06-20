@@ -39,11 +39,11 @@ module Fog
                     :ScheduleWeekDays => data[:daysOfWeek]
                                       }]
             }
-          elsif data[:frequencyType].include? 'Daily' or 'Hourly'
+          elsif data[:frequencyType].include? 'Daily' or data[:frequencyType].include? 'Hourly'
             body[:NewSchedulePlan] << {
                 :ScheduleFrequencyType => data[:frequency]
             }
-          end # Monhtly
+          end
           options = {
               :http_method => :post,
               :method => 'SetAddServerScheduledOperation',

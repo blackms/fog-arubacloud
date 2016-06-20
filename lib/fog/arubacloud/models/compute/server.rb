@@ -11,12 +11,15 @@ require 'fog/arubacloud/error'
 module Fog
   module Compute
     class ArubaCloud
+      # noinspection RubyTooManyMethodsInspection
       class Server < Fog::Compute::Server
         CREATING = 1
         STOPPED = 2
         RUNNING = 3
         ARCHIVED = 4
         DELETED = 5
+
+        #collection_name :servers
 
         # This is the instance ID which is unique per Datacenter
         identity :id, :aliases => 'ServerId'
@@ -182,29 +185,29 @@ module Fog
         def archive
           requires :id, :state, :vm_type
           state == STOPPED and vm_type.eql? 'pro' ? service.archive_vm(id) : raise(Fog::ArubaCloud::Errors::VmStatus.new(
-                                                                                       "Cannot archive VM in current state #{state} or VM type #{vm_type}"
-                                                                                   ))
+              "Cannot archive VM in current state #{state} or VM type #{vm_type}"
+          ))
         end
 
         def restore
           requires :id, :memory, :cpu
           state == ARCHIVED and memory != nil and cpu != nil ? service.restore_vm(id) : raise(Fog::ArubaCloud::Errors::VmStatus.new(
-                                                                                                  "Cannot restore VM without specifying #{cpu} and #{memory}"
-                                                                                              ))
+              "Cannot restore VM without specifying #{cpu} and #{memory}"
+          ))
         end
 
         def create_snapshot
           requires :id
           id != nil ? service.create_snapshot(id) : raise(Fog::ArubaCloud::Errors::VmStatus.new(
-                                                              'Cannot crate snapshot without vm id'
-                                                          ))
+              'Cannot crate snapshot without vm id'
+          ))
         end
 
         def apply_snapshot
           requires :id
           state == STOPPED ? service.apply_snapshot(id) : raise(Fog::ArubaCloud::Errors::VmStatus.new(
-                                                                    "Cannot restore snapshot in current vm state #{state}"
-                                                                ))
+              "Cannot restore snapshot in current vm state #{state}"
+          ))
         end
 
         def delete_snapshot
@@ -214,63 +217,100 @@ module Fog
 
         def create_loadbalancer
           requires :name, :rules, :ipaddressesresourceid
-          service.create_loadbalancer(name, ipaddressesresourceid, balancetype, certificate, creationdate, ruleid, instanceport, loadbalancerport, protocol, contactvalue, loadbalancercontactid, type)
-        end # create_loadbalancer
+          service.create_loadbalancer(
+              name,
+              ipaddressesresourceid,
+              balancetype,
+              certificate,
+              creationdate,
+              ruleid,
+              instanceport,
+              loadbalancerport,
+              protocol,
+              contactvalue,
+              loadbalancercontactid,
+              type
+          )
+        end
+
+        # create_loadbalancer
 
         def remove_loadbalancer
           requires :id
           service.remove_loadbalancer(id)
-        end # remove_loadbalancer
+        end
+
+        # remove_loadbalancer
 
         def get_loadbalancer
           requires :id
           service.get_loadbalancer(id)
-        end # get_loadbalancer
+        end
+
+        # get_loadbalancer
 
         def modify_loadbalancer
           requires :id, :name, :healthchecknotification
           service.modify_loadbalancer(id, name, healthchecknotification)
-        end # modify_loadbalancer
+        end
+
+        # modify_loadbalancer
 
         def get_lb_stats
           requires :id, :starttime, :endtime
           service.get_lb_stats(id, starttime, endtime)
-        end # get_lb_stats
+        end
+
+        # get_lb_stats
 
         def get_lb_loads
           requires :id, :starttime, :endtime
           service.get_lb_loads(id, starttime, endtime)
-        end # get_lb_loads
+        end
+
+        # get_lb_loads
 
         def add_lb_rule
           requires :id, :newrule
           service.add_lb_rule(id, newrule)
-        end # add_lb_rule
+        end
+
+        # add_lb_rule
 
         def remove_instance
           requires :id, :ipaddress
           service.remove_instance(id, ipaddress)
-        end # remove_instance
+        end
+
+        # remove_instance
 
         def add_instance
           requires :id, :ipaddress
           service.add_instance(id, ipaddress)
-        end # add_instance
+        end
+
+        # add_instance
 
         def get_notifications
           requires :id, :starttime, :endtime, :ruleid
           service.get_notifications(id, starttime, endtime, ruleid)
-        end # get_notifications
+        end
+
+        # get_notifications
 
         def add_contact
           requires :id, :notificationcontacts
           service.add_contact(id, notificationcontacts)
-        end # add contact
+        end
+
+        # add contact
 
         def remove_contact
           requires :id, :contactid
           service.remove_contact(id, contactid)
-        end # remove contact
+        end
+
+        # remove contact
 
         def enable_loadbalancer
           requires :id
@@ -283,13 +323,49 @@ module Fog
         end
 
         def create_custom_template
-          requires :appliancetypeid, :architecturetypeid, :osfamilyid, :osversion, :revision, :defaultvalue, :maxvalue, :minvalue, :resourcetype, :templateboundid,:templatedescription, :templateexternaldescription, :templatepassword, :templateusername, :virtualmachineid
-          service.create_custom_template(appliancetypeid, architecturetypeid, osfamilyid, osversion, revision, defaultvalue, maxvalue, minvalue, resourcetype, templateboundid, templatedescription, templateexternaldescription, templatepassword, templateusername, virtualmachineid)
+          requires :appliancetypeid, :architecturetypeid, :osfamilyid, :osversion, :revision, :defaultvalue,
+                   :maxvalue, :minvalue, :resourcetype, :templateboundid, :templatedescription,
+                   :templateexternaldescription, :templatepassword, :templateusername, :virtualmachineid
+          service.create_custom_template(
+              appliancetypeid,
+              architecturetypeid,
+              osfamilyid,
+              osversion,
+              revision,
+              defaultvalue,
+              maxvalue,
+              minvalue,
+              resourcetype,
+              templateboundid,
+              templatedescription,
+              templateexternaldescription,
+              templatepassword,
+              templateusername,
+              virtualmachineid
+          )
         end
 
         def edit_custom_template
-          requires :appliancetypeid, :architecturetypeid, :osfamilyid, :osversion, :revision, :defaultvalue, :maxvalue, :minvalue, :resourcetype, :templateboundid,:templatedescription, :templateexternaldescription, :templatepassword, :templateusername, :virtualmachineid
-          service.edit_custom_template(appliancetypeid, architecturetypeid, osfamilyid, osversion, revision, defaultvalue, maxvalue, minvalue, resourcetype, templateboundid, templatedescription, templateexternaldescription, templatepassword, templateusername, virtualmachineid)
+          requires :appliancetypeid, :architecturetypeid, :osfamilyid, :osversion, :revision, :defaultvalue,
+                   :maxvalue, :minvalue, :resourcetype, :templateboundid, :templatedescription,
+                   :templateexternaldescription, :templatepassword, :templateusername, :virtualmachineid
+          service.edit_custom_template(
+              appliancetypeid,
+              architecturetypeid,
+              osfamilyid,
+              osversion,
+              revision,
+              defaultvalue,
+              maxvalue,
+              minvalue,
+              resourcetype,
+              templateboundid,
+              templatedescription,
+              templateexternaldescription,
+              templatepassword,
+              templateusername,
+              virtualmachineid
+          )
         end
 
         def delete_custom_template

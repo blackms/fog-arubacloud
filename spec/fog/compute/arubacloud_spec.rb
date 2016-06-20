@@ -28,5 +28,17 @@ describe Fog::Compute::ArubaCloud do
       assert @service.respond_to? :servers
     end
 
+    it 'respond to #templates' do
+      assert @service.respond_to? :templates
+    end
+
+    it 'respond to #loadbalancers' do
+      assert @service.respond_to? :loadbalancers
+    end
+
+    it 'respond to #schedules' do
+      assert @service.respond_to? :schedules
+    end
+
   end
 end

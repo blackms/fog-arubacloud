@@ -11,7 +11,6 @@ require 'fog/arubacloud/models/compute/ip'
 module Fog
   module Compute
     class ArubaCloud
-
       class Disks < Fog::Collection
         model Fog::Compute::ArubaCloud::Disk
 
