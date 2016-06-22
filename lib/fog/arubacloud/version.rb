@@ -6,7 +6,7 @@
 #
 
 module Fog
-  module Arubacloud
+  module ArubaCloud
     VERSION = '0.0.4'
   end
 end

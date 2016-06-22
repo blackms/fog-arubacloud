@@ -5,7 +5,7 @@ require 'fog/arubacloud/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'fog-arubacloud'
-  spec.version       = Fog::Arubacloud::VERSION
+  spec.version       = Fog::ArubaCloud::VERSION
   spec.authors       = ['Alessio Rocchi']
   spec.email         = ['alessio.rocchi@staff.aruba.it']
   spec.summary       = %q{Module for the 'fog' gem to support ArubaCloud}
@@ -19,13 +19,13 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'fog-core'
-  spec.add_dependency 'fog-json'
+  spec.add_runtime_dependency 'fog-core', '~> 0'
+  spec.add_runtime_dependency 'fog-json', '~> 0'
 
-  spec.add_development_dependency('bundler')
-  spec.add_development_dependency('rake')
-  spec.add_development_dependency('rspec')
-  spec.add_development_dependency('webmock')
-  spec.add_development_dependency('shindo')
-  spec.add_development_dependency('minitest')
+  spec.add_development_dependency 'bundler', '~> 0'
+  spec.add_development_dependency 'rake', '~> 0'
+  spec.add_development_dependency 'rspec', '~> 0'
+  spec.add_development_dependency 'webmock', '~> 0'
+  spec.add_development_dependency 'shindo', '~> 0'
+  spec.add_development_dependency 'minitest', '~> 0'
 end

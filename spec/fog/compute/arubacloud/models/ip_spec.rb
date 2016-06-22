@@ -1,62 +1,52 @@
 require 'spec_helper'
-require 'fog/arubacloud/models/compute/disk'
+require 'fog/arubacloud/models/compute/ip'
 require 'fog/arubacloud'
 
-describe Fog::Compute::ArubaCloud::Disk do
+describe Fog::Compute::ArubaCloud::IP do
   include ModelSetup
 
-  let (:disk_class) do
-    class Fog::Compute::ArubaCloud::Disk
+  let (:ip_class) do
+    class Fog::Compute::ArubaCloud::IP
       def self.read_identity
         instance_variable_get('@identity')
       end
     end
-    Fog::Compute::ArubaCloud::Disk
+    Fog::Compute::ArubaCloud::IP
   end
 
   let(:service) { Object.new }
-  let(:disk) { Fog::Compute::ArubaCloud::Disk.new }
+  let(:ip) { Fog::Compute::ArubaCloud::IP.new }
 
-  it 'must respond to #create' do
-    disk.must_respond_to :create
+  it 'must respond to #purchase' do
+    ip.must_respond_to :purchase
   end
 
-  describe '#create' do
-    describe 'passing a wrong disk size >500GB' do
+  it 'must respond to #remove' do
+    ip.must_respond_to :remove
+  end
+
+  describe '#remove' do
+    describe 'without ServerId set' do
       before :each do
-        disk.size = 600
-        disk.virtual_disk_type = 1
+        ip.id = nil
       end
 
-      it 'should raise BadDiskSize' do
-        disk.stub(:service, service) do
-          proc {disk.create}.must_raise Fog::ArubaCloud::Errors::BadDiskSize
+      it 'should raise ArgumentError' do
+        ip.stub(:service, service) do
+          proc {ip.remove}.must_raise ArgumentError
         end
       end
     end
 
-    describe 'passing wrong disk type (> 3)' do
+    describe 'still attached to the server' do
       before :each do
-        disk.size = 100
-        disk.virtual_disk_type = 4
+        ip.id = 23432
+        ip.server = 3254324
       end
 
-      it 'should raise BadDiskNumber' do
-        disk.stub(:service, service) do
-          proc {disk.create}.must_raise Fog::ArubaCloud::Errors::BadDiskNumber
-        end
-      end
-    end
-
-    describe 'passing correct values' do
-      before :each do
-        disk.size = 100
-        disk.virtual_disk_type = 1
-      end
-
-      it 'should return' do
-        disk.stub(:service, service) do
-          disk.create
+      it 'should raise RequestError' do
+        ip.stub(:service, service) do
+          proc {ip.remove}.must_raise Fog::ArubaCloud::Errors::RequestError
         end
       end
     end

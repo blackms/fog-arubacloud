@@ -20,15 +20,6 @@ describe Fog::Compute::ArubaCloud::Server do
   let(:service) { Object.new }
 
 
-#  it 'should respond to #collection_name' do
-#    assert server_class.respond_to? :collection_name
-#  end
-
-#  it 'should have a collection name' do
-#    server_class.collection_name.must_equal(:servers)
-#  end
-
-
   it 'should have an unique id' do
     server_class.read_identity.must_equal(:id)
   end

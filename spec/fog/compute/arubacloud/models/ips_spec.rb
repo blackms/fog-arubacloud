@@ -1,11 +1,11 @@
 require 'spec_helper'
-require 'fog/arubacloud/models/compute/disks'
+require 'fog/arubacloud/models/compute/ips'
 
-describe Fog::Compute::ArubaCloud::Disks do
-  subject { Fog::Compute::ArubaCloud::Disks }
+describe Fog::Compute::ArubaCloud::Ips do
+  subject { Fog::Compute::ArubaCloud::Ips }
 
-  it 'should be a collection of Disk' do
-    subject.model.must_equal(Fog::Compute::ArubaCloud::Disk)
+  it 'should be a collection of IP' do
+    subject.model.must_equal(Fog::Compute::ArubaCloud::IP)
   end
 
 end

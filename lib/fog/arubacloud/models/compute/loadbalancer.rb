@@ -43,7 +43,8 @@ module Fog
         end # initialize
 
         def create_loadbalancer
-          requires :name, :ipaddressesresourceid, :balancetype, :certificate, :creationdate, :ruleid, :instanceport, :loadbalancerport, :protocol, :contactvalue, :loadbalancercontactid, :type
+          requires :name, :ipaddressesresourceid, :balancetype, :certificate, :creationdate, :ruleid, :instanceport,
+                   :loadbalancerport, :protocol, :contactvalue, :loadbalancercontactid, :type
           data = attributes
           service.create_loadbalancer(data)
         end # create

@@ -40,5 +40,13 @@ describe Fog::Compute::ArubaCloud do
       assert @service.respond_to? :schedules
     end
 
+    it 'respond to #loadbalancers' do
+      assert @service.respond_to? :loadbalancers
+    end
+
+    it 'respond to #disks' do
+      assert @service.respond_to? :disks
+    end
+
   end
 end

@@ -29,12 +29,12 @@ rnd_string = SecureRandom.hex(2)
 
 # Create a Pro VM
 ## Create first disk
-disk0 = service.disks.create({
+disk0 = service.disks.create_loadbalancer({
                                  :size => 20,
                                  :virtual_disk_type => 0
                              }).get_hash
 ## Create second disk
-disk1 = service.disks.create({
+disk1 = service.disks.create_loadbalancer({
                                  :size => 30,
                                  :virtual_disk_type => 1
                              }).get_hash
@@ -42,7 +42,7 @@ disk1 = service.disks.create({
 disks = [disk0, disk1]
 
 ## Create the virtual machine
-server = service.servers.create({
+server = service.servers.create_loadbalancer({
                                     :name           => "testpro#{rnd_string}",
                                     :vm_type        => 'pro',
                                     :admin_passwd   => 'Prova123',

@@ -13,7 +13,7 @@ module Fog
   module Compute
     class ArubaCloud
       class LoadBalancers < Fog::Collection
-        model Fog::Compute::ArubaCloud::LoadBalancers
+        model Fog::Compute::ArubaCloud::LoadBalancer
       end # Load Balancers
     end # ArubaCloud
   end # Compute

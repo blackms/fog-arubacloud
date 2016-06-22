@@ -34,8 +34,6 @@ module Fog
       model      :network_adapter
       collection :snapshots
       model      :snapshot
-      collection :archives
-      model      :archive
       collection :schedules
       model      :schedule
       collection :loadbalancers

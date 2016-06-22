@@ -184,15 +184,18 @@ module Fog
 
         def archive
           requires :id, :state, :vm_type
-          state == STOPPED and vm_type.eql? 'pro' ? service.archive_vm(id) : raise(Fog::ArubaCloud::Errors::VmStatus.new(
-              "Cannot archive VM in current state #{state} or VM type #{vm_type}"
-          ))
+          if state == STOPPED and vm_type.eql?('pro')
+            service.archive_vm(id)
+          else
+            raise(Fog::ArubaCloud::Errors::VmStatus.new(
+                "Cannot archive VM in current state #{state} or VM type #{vm_type}"))
+          end
         end
 
         def restore
           requires :id, :memory, :cpu
-          state == ARCHIVED and memory != nil and cpu != nil ? service.restore_vm(id) : raise(Fog::ArubaCloud::Errors::VmStatus.new(
-              "Cannot restore VM without specifying #{cpu} and #{memory}"
+          state == ARCHIVED and memory != nil and cpu != nil ? service.restore_vm(id) : raise(
+              Fog::ArubaCloud::Errors::VmStatus.new("Cannot restore VM without specifying #{cpu} and #{memory}"
           ))
         end
 
