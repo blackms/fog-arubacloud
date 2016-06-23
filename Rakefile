@@ -44,12 +44,12 @@ namespace :test do
   end
 end
 
-task :release => ["release:prepare", "release:publish"]
+task :release => %w(release:prepare release:publish)
 
 namespace :release do
   task :preflight do
     unless `git branch` =~ /^\* master$/
-      puts "You must be on the master branch to release!"
+      puts 'You must be on the master branch to release!'
       exit!
     end
     if `git tag` =~ /^\* v#{version}$/
@@ -76,7 +76,7 @@ task :git_mark_release do
 end
 
 task :git_push_release do
-  sh "git push origin master"
+  sh 'git push origin master'
   sh "git push origin v#{version}"
 end
 
@@ -88,7 +88,7 @@ desc "Build fog-#{version}.gem"
 task :build => :gemspec do
   sh 'mkdir -p pkg'
   sh "gem build #{gemspec_file}"
-  sh "mv #{gem_file} pkg"
+  sh "mv #{gem_file} gemfiles"
 end
 task :gem => :build
 

@@ -98,31 +98,4 @@ describe Fog::Compute::ArubaCloud::LoadBalancer do
     loadbalancer_class.read_identity.must_equal(:id)
   end
 
-"#{  before :each do
-    loadbalancer.id = 213421
-    loadbalancer.name = 'lbl'
-    loadbalancer.ipaddressesresourceid = 14234
-    loadbalancer.balancetype = 1
-    loadbalancer.certificate = nil
-    loadbalancer.creationdate = nil
-    loadbalancer.ruleid = nil
-    loadbalancer.instanceport = nil
-    loadbalancer.loadbalancerport = nil
-    loadbalancer.protocol = nil
-    loadbalancer.contactvalue = nil
-    loadbalancer.loadbalancercontactid = nil
-    loadbalancer.type = nil
-  end}"
-
-  describe '#create_loadbalancer' do
-    describe 'with missing data' do
-
-      it 'should raise ArgumentError' do
-        loadbalancer.stub(:service, service) do
-          loadbalancer.create_loadbalancer.must_raise ArgumentError
-        end
-      end
-    end
-  end
-
 end

@@ -17,9 +17,9 @@ module Fog
         SUSPEND = 'Suspend'
         DELETE = 'Delete'
 
-        identity :OperationId, :aliases => 'OperationId'
+        identity :id, :aliases => 'OperationId'
 
-        attribute :operationid, :aliases => 'OperationId'
+        attribute :OperationId, :aliases => 'OperationId'
         attribute :ServerId, :aliases => 'ServerId'
         attribute :OperationType, :aliases => 'OperationType'
         attribute :OperationLabel, :aliases => 'OperationLabel'
@@ -60,7 +60,7 @@ module Fog
           end
         end # create_schedule_operation
 
-        def create_scheduled_occurence
+        def create_scheduled_occurrence
           requires :ServerId, :OperationType, :OperationLabel, :dateStart, :dateEnd, :frequencyType, :monthlyRecurrence, :daysOfMonth, :daysOfWeek, :frequency
           if :name != nil
             data[:name] = name
@@ -70,10 +70,10 @@ module Fog
         end
 
         def suspend_scheduled_operation
-          requires :operationid
+          requires :id
           data = :attributes
           if :OperationId != nil
-            data[:OperationId] = operationid
+            data[:OperationId] = id
           else
             raise Fog::ArubaCloud::Errors::BadParameters.Exception('Missing Parameter')
           end

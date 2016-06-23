@@ -52,7 +52,7 @@ module Fog
           @service = attributes[:service]
 
           if attributes[:vm_type].nil?
-            self.vm_type = 'smart' if attributes['HypervisorType'].eql? '4' || 'pro'
+            self.vm_type = 'smart' if attributes['HypervisorType'].eql? '4' else 'pro'
           end
 
           super

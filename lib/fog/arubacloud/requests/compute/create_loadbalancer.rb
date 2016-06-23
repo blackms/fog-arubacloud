@@ -63,10 +63,16 @@ module Fog
 
         end # create_loadbalancer
         class Mock
-          def create_loadbalancer
-            raise Fog::Errors::MockNotImplemented.new(
-                'Mock not implemented. Feel free to contribute.'
-            )
+          def create_loadbalancer(data)
+            response = Excon::Response.new
+            response.status = 200
+            response.body = {
+                'ExceptionInfo' => nil,
+                'ResultCode' => 0,
+                'ResultMessage' => nil,
+                'Success' => true
+            }
+            response.body
           end # create_loadbalancer
         end # Mock
       end # Real

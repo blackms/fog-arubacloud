@@ -66,7 +66,7 @@ module Fog
       request :suspend_scheduled_operations
       request :delete_scheduled_operation
       request :create_scheduled_operation
-      request :create_scheduled_occurence
+      request :create_scheduled_occurrence
       request :create_loadbalancer
       request :remove_loadbalancer
       request :get_loadbalancer

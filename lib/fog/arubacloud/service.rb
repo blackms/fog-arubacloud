@@ -35,7 +35,9 @@ module Fog
           response = @connection.request(:method => http_method)
         rescue Excon::Errors::Timeout
           # raise an error
-          raise Fog::ArubaCloud::Errors::RequestTimeOut.new("Request timed out after: #{60 unless params[:read_timeout]}")
+          raise Fog::ArubaCloud::Errors::RequestTimeOut.new(
+              "Request timed out after: #{60 unless params[:read_timeout]}"
+          )
         end
 
         # decode the response and return it
