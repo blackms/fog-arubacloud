@@ -158,35 +158,27 @@ module Fog
         end
 
         def power_off
-          self.action_hook(
-              :power_off_vm,
-              [:id, :state],
-              RUNNING,
-              "Cannot poweroff vm in current state: #{state}"
+          self.action_hook(method=:power_off_vm,  required_attr=[:id, :state],  expected_state=RUNNING,
+                           message="Cannot poweroff vm in current state: #{state}"
           )
         end
 
         def power_on
-          self.action_hook(
-              power_on_vm,
-              [:id, :state],
-              STOPPED,
-              "Cannot poweron vm in current state: #{state}"
+          self.action_hook(method=:power_on_vm, required_attr=[:id, :state], expected_state=STOPPED,
+                           message="Cannot poweron vm in current state: #{state}"
           )
         end
 
         def delete
-          requires :id
-          state == STOPPED ? service.delete_vm(id) : raise(Fog::ArubaCloud::Errors::VmStatus.new(
-              "Cannot delete vm in current state: #{state}"
-          ))
+          self.action_hook(method=:delete_vm, required_attr=[:id], expected_state=STOPPED,
+                           message="Cannot delete vm in current state: #{state}"
+          )
         end
 
         def reinitialize
-          requires :id, :hypervisor
-          state == STOPPED ? service.reinitialize_vm(id) : raise(Fog::ArubaCloud::Errors::VmStatus.new(
-              "Cannot reinitialize vm in current state: #{state}"
-          ))
+          self.action_hook(method=:reinitialize_vm, required_attr=[:id, :hypervisor], expected_state=STOPPED,
+                           message="Cannot reinitialize vm in current state: #{state}"
+          )
         end
 
         def archive
@@ -214,10 +206,9 @@ module Fog
         end
 
         def apply_snapshot
-          requires :id
-          state == STOPPED ? service.apply_snapshot(id) : raise(Fog::ArubaCloud::Errors::VmStatus.new(
-              "Cannot restore snapshot in current vm state #{state}"
-          ))
+          self.action_hook(method=:apply_snapshot, required_attr=[:id], expected_state=STOPPED,
+                           message="Cannot restore vm in current state: #{state}"
+          )
         end
 
         def delete_snapshot
