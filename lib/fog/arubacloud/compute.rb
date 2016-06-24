@@ -91,8 +91,7 @@ module Fog
       request :delete_shared_storage
       request :rename_shared_storage
 
-      # Mock class to run a fake instance of the Service with no real connections.
-      class Mock < Fog::ArubaCloud::Service
+      class BaseObject < Fog::ArubaCloud::Service
         def initialize(options={})
           @arubacloud_username = options[:arubacloud_username] || ''
           @arubacloud_password = options[:arubacloud_password] || ''
@@ -110,27 +109,26 @@ module Fog
               :Username => @arubacloud_username,
               :Password => @arubacloud_password
           }
+        end
+      end
+
+      class Mock < BasicObject
+        def initialize(options={})
+          super
+        end
+
+        def body(method)
+          super
         end
       end #Mock
 
-      class Real < Fog::ArubaCloud::Service
+      class Real < BasicObject
         def initialize(options={})
-          @arubacloud_username = options[:arubacloud_username] || ''
-          @arubacloud_password = options[:arubacloud_password] || ''
-          @ws_enduser_url = options[:url] || Fog::ArubaCloud::DEFAULT_WS_ENDUSER_URL
+          super
         end
 
-        # Return the base json object used by each request.
-        # @param method [String] the name of the method to call.
-        # @return [Hash] base scheme for json request.
         def body(method)
-          {
-              :ApplicationId => method,
-              :RequestId => method,
-              :Sessionid => method,
-              :Username => @arubacloud_username,
-              :Password => @arubacloud_password
-          }
+          super
         end
       end #Real
 

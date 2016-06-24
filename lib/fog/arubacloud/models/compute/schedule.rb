@@ -19,6 +19,7 @@ module Fog
 
         identity :id, :aliases => 'OperationId'
 
+        attribute :name
         attribute :OperationId, :aliases => 'OperationId'
         attribute :ServerId, :aliases => 'ServerId'
         attribute :OperationType, :aliases => 'OperationType'
@@ -38,9 +39,6 @@ module Fog
 
         def initialize
           @service = attributes[:service]
-          if attributes[:ServerId].nil? and attributes[:OperationType].nil? and attributes[:dateStart].nil? and attributes[:dateEnd].nil?
-            'operation impossible'
-          end
         end # initialize
 
         def get_scheduled_operations
@@ -51,13 +49,9 @@ module Fog
         end # get_schedule
 
         def create_scheduled_operation
-          requires :ServerId, :OperationType, :OperationLabel, :dateStart, :dateEnd
+          requires :dateStart, :dateEnd, :OperationType, :ServerId
           data = :attributes
-          if :name != nil
-            data[:name] = name
-          else
-            raise Fog::ArubaCloud::Errors::BadParameters.Exception('Missing Parameter')
-          end
+          service.create_scheduled_operation(data)
         end # create_schedule_operation
 
         def create_scheduled_occurrence

@@ -38,9 +38,10 @@ module Fog
           if response['Success']
             response
           else
-            raise Fog::ArubaCloud::Errors::RequestError.new("Error during the Scheduled Operation creation.")
+            raise Fog::ArubaCloud::Errors::RequestError.new('Error during the Scheduled Operation creation.')
           end
         end # create_scheduled_operation
+
         class Mock
           def create_scheduled_operation
             raise Fog::Errors::MockNotImplemented.new(
