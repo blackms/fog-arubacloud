@@ -13,9 +13,10 @@ require 'benchmark'
 module Fog
   module Compute
     class ArubaCloud
+
       class Real
         def create_custom_template(data)
-          body = self.body('SetEnqueuePersonalTemplateCreation').merge(
+          body = {
               :template => {
                   :ApplianceTypeID => data[:ApplianceTypeID],
                   :ArchitectureTypeID => data[:ArchitectureTypeID],
@@ -39,33 +40,23 @@ module Fog
                   :TemplateUsername => data[:TemplateUsername],
                   :VirtualMachineID => data[:VirtualMachineID]
               }
+          }
+          self.request(
+              body=body,
+              method_name='SetEnqueuePersonalTemplateCreation',
+              failure_message='Error while attempting to delete custom template.'
           )
-          options = {
-              :http_method => :post,
-              :method => 'SetEnqueuePersonalTemplateCreation',
-              :body => Fog::JSON.encode(body)
-          }
-
-          response = nil
-          time = Benchmark.realtime {
-            response = request(options)
-          }
-          Fog::Logger.debug("SetEnqueuePersonalTemplateCreation time: #{time}")
-          if response['Success']
-            response
-          else
-            raise Fog::ArubaCloud::Errors::RequestError.new('Error during the request.')
-          end
-
         end # create_custom_template
-        class Mock
-          def create_custom_template
-            raise Fog::Errors::MockNotImplemented.new(
-                      'Mock not implemented. Feel free to contribute.'
-                  )
-          end # create_custom_template
-        end # Mock
       end # Real
+
+      class Mock
+        def create_custom_template
+          raise Fog::Errors::MockNotImplemented.new(
+              'Mock not implemented. Feel free to contribute.'
+          )
+        end # create_custom_template
+      end # Mock
+
     end # ArubaCloud
   end # Compute
 end # Fog

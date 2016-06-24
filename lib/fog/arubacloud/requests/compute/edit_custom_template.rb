@@ -13,9 +13,10 @@ require 'benchmark'
 module Fog
   module Compute
     class ArubaCloud
+
       class Real
         def edit_custom_template(data)
-          body = self.body('SetUpdatePersonalTemplate').merge(
+          body = {
               :template => {
                   :ApplianceTypeID => data[:ApplianceTypeID],
                   :ArchitectureTypeID => data[:ArchitectureTypeID],
@@ -39,33 +40,23 @@ module Fog
                   :TemplateUsername => data[:TemplateUsername],
                   :VirtualMachineID => data[:VirtualMachineID]
               }
+          }
+          self.request(
+                  body=body,
+                  method_name='SetUpdatePersonalTemplate',
+                  failure_message='Error while editing custom template.'
           )
-          options = {
-              :http_method => :post,
-              :method => 'SetUpdatePersonalTemplate',
-              :body => Fog::JSON.encode(body)
-          }
-
-          response = nil
-          time = Benchmark.realtime {
-            response = request(options)
-          }
-          Fog::Logger.debug("SetUpdatePersonalTemplate time: #{time}")
-          if response['Success']
-            response
-          else
-            raise Fog::ArubaCloud::Errors::RequestError.new('Error during the request.')
-          end
-
         end # edit_custom_template
-        class Mock
-          def edit_custom_template
-            raise Fog::Errors::MockNotImplemented.new(
-                      'Mock not implemented. Feel free to contribute.'
-                  )
-          end # edit_custom_template
-        end # Mock
       end # Real
+
+      class Mock
+        def edit_custom_template
+          raise Fog::Errors::MockNotImplemented.new(
+              'Mock not implemented. Feel free to contribute.'
+          )
+        end # edit_custom_template
+      end # Mock
+
     end # ArubaCloud
   end # Compute
 end # Fog

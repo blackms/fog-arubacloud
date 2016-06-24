@@ -13,39 +13,30 @@ require 'benchmark'
 module Fog
   module Compute
     class ArubaCloud
+
       class Real
         def delete_custom_template(data)
-          body = self.body('SetRemovePersonalTemplate').merge(
+          body = {
               :template => {
                   :templateID => data[:id]
               }
+          }
+          self.request(
+                  body=body,
+                  method_name='SetRemovePersonalTemplate',
+                  failure_message='Error while attempting to delete custom template.'
           )
-          options = {
-              :http_method => :post,
-              :method => 'SetRemovePersonalTemplate',
-              :body => Fog::JSON.encode(body)
-          }
-
-          response = nil
-          time = Benchmark.realtime {
-            response = request(options)
-          }
-          Fog::Logger.debug("SetRemovePersonalTemplate time: #{time}")
-          if response['Success']
-            response
-          else
-            raise Fog::ArubaCloud::Errors::RequestError.new('Error during the request.')
-          end
-
         end # delete_custom_template
-        class Mock
-          def delete_custom_template
-            raise Fog::Errors::MockNotImplemented.new(
-                      'Mock not implemented. Feel free to contribute.'
-                  )
-          end # delete_custom_template
-        end # Mock
       end # Real
+
+      class Mock
+        def delete_custom_template
+          raise Fog::Errors::MockNotImplemented.new(
+              'Mock not implemented. Feel free to contribute.'
+          )
+        end # delete_custom_template
+      end # Mock
+
     end # ArubaCloud
   end # Compute
 end # Fog

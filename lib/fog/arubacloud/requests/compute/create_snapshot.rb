@@ -13,37 +13,27 @@ require 'benchmark'
 module Fog
   module Compute
     class ArubaCloud
+
       class Real
         # Create a new snapshot of a VM
         def create_snapshot(data)
           (service.servers).all.each do |server|
             id = server.id if (server.name).include? data[:name]
           end
-          body = self.body('SetEnqueueServerSnapshot').merge(
-              {
+          body = {
                   :Snapshot => {
                       :ServerId => id,
                       :SnapshotOperationTypes => 'Create'
                   }
               }
+          self.request(
+                  body=body,
+                  method_name='SetEnqueueServerSnapshot',
+                  failure_message='Error while attempting to create a snapshot.'
           )
-          options = {
-              :http_method => :post,
-              :method => 'SetEnqueueServerSnapshot',
-              :body => Fog::JSON.encode(body)
-          }
-          response = nil
-          time = Benchmark.realtime {
-            response = request(options)
-          }
-          Fog::Logger.debug("SetEnqueueServerSnapshot time: #{time}")
-          if response['Success']
-            response
-          else
-            raise Fog::ArubaCloud::Errors::RequestError.new(response)
-          end
         end #Create_snapshot
       end #Real
+
       class Mock
         def create_snapshot
           response = Excon::Response.new
