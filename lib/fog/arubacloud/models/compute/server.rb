@@ -52,12 +52,25 @@ module Fog
           @service = attributes[:service]
 
           if attributes[:vm_type].nil?
-            self.vm_type = 'smart' if attributes['HypervisorType'].eql? '4' else 'pro'
+            self.vm_type = 'smart' if attributes['HypervisorType'].eql? '4'
+          else
+            'pro'
           end
 
           super
         end
 
+        def action_hook(method, required_attr, expected_state, message)
+          if @service.respond_to? method
+            required_attr.each { |r| requires r }
+            unless state.eql? expected_state
+              raise Fog::ArubaCloud::Errors::VmStatus.new(message)
+            end
+            @service.send method, id
+          end
+        end
+
+        public
         # Is server in ready state
         # @param [String] ready_state By default state is RUNNING
         # @return [Boolean] return true if server is in ready state
@@ -103,27 +116,20 @@ module Fog
 
           # Retrieve new server list and filter the current virtual machine
           # in order to retrieve the ID
-          # In case of failure, I will try it 3 for 3 times
-          try = 0
           server = nil
-          while server.nil? && try <= 3
+          while server.nil?
             servers = service.get_servers
-            #server = servers['Value'].select { |v| v['Name'].include?(data[:name]) }.first
             servers['Value'].each do |s|
-              if s['Name'].to_s.include? data[:name].to_s
-                server = s
-              end
+              server = s if s['Name'].to_s.include? data[:name].to_s
             end
-            Fog::Logger.debug("Fog::Compute::ArubaCloud::Server.create, #{data[:name]} server: #{server.inspect}")
-            if server
-              merge_attributes(server)
-            else
-              message = "error during attribute merge, `server` object is not ready, try n.#{try}"
-              Fog::Logger.warning("Fog::Compute::ArubaCloud::Server.create, #{message}")
-              Fog::Logger.warning(servers.inspect.to_yaml)
-              sleep(1)
-            end
-            try += 1
+          end
+          Fog::Logger.debug("Fog::Compute::ArubaCloud::Server.create, #{data[:name]} server: #{server.inspect}")
+          if server
+            merge_attributes(server)
+          else
+            message = 'error during attribute merge, `server` object is not ready.'
+            Fog::Logger.warning("Fog::Compute::ArubaCloud::Server.create, #{message}")
+            sleep(1)
           end
         end
 
@@ -153,19 +159,21 @@ module Fog
         end
 
         def power_off
-          requires :id, :state
-          unless state.eql? RUNNING
-            raise Fog::ArubaCloud::Errors::VmStatus.new("Cannot poweroff vm in current state: #{state}")
-          end
-          @service.power_off_vm(id)
+          self.action_hook(
+              :power_off_vm,
+              [:id, :state],
+              RUNNING,
+              "Cannot poweroff vm in current state: #{state}"
+          )
         end
 
         def power_on
-          requires :id, :state
-          unless state.eql? STOPPED
-            raise Fog::ArubaCloud::Errors::VmStatus.new("Cannot poweron vm in current state: #{state}")
-          end
-          @service.power_on_vm(id)
+          self.action_hook(
+              power_on_vm,
+              [:id, :state],
+              STOPPED,
+              "Cannot poweron vm in current state: #{state}"
+          )
         end
 
         def delete
@@ -196,7 +204,7 @@ module Fog
           requires :id, :memory, :cpu
           state == ARCHIVED and memory != nil and cpu != nil ? service.restore_vm(id) : raise(
               Fog::ArubaCloud::Errors::VmStatus.new("Cannot restore VM without specifying #{cpu} and #{memory}"
-          ))
+              ))
         end
 
         def create_snapshot
