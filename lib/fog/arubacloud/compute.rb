@@ -6,6 +6,7 @@
 #
 
 require 'fog/arubacloud/service'
+require 'benchmark'
 
 module Fog
   module Compute
@@ -110,6 +111,34 @@ module Fog
               :Password => @arubacloud_password
           }
         end
+
+        # Method generator to wrap around request inside requests files.
+        # @param [Hash] body
+        # @param [String] method_name
+        # @param [String] failure_message
+        # @param [Bool] benchmark
+        def request(body={}, method_name='', failure_message='', benchmark=true)
+          full_body = self.body(method_name).merge(body)
+          options = {
+              :http_method => :post,
+              :method => method_name,
+              :body => Fog::JSON.encode(full_body)
+          }
+          response = nil
+          if benchmark
+            time = Benchmark.realtime {
+              response = request(options)
+            }
+            Fog::Logger.debug("#{options[:method]} took: #{time}")
+          else
+            response = request(options)
+          end
+          if response['Success']
+            response
+          else
+            raise Fog::ArubaCloud::Errors::RequestError.new(failure_message)
+          end
+        end
       end
 
       class Mock < BaseObject
@@ -120,6 +149,10 @@ module Fog
         def body(method)
           super(method)
         end
+
+        def request(body={}, method_name='', failure_message='', benchmark=true)
+          super(body={}, method_name='', failure_message='', benchmark=true)
+        end
       end #Mock
 
       class Real < BaseObject
@@ -129,6 +162,10 @@ module Fog
 
         def body(method)
           super(method)
+        end
+
+        def request(body={}, method_name='', failure_message='', benchmark=true)
+          super(body={}, method_name='', failure_message='', benchmark=true)
         end
       end #Real
 

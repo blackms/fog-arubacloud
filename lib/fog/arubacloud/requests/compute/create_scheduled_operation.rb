@@ -7,7 +7,6 @@
 
 require 'fog/arubacloud/service'
 require 'fog/arubacloud/error'
-require 'benchmark'
 
 
 module Fog
@@ -15,7 +14,7 @@ module Fog
     class ArubaCloud
       class Real
         def create_scheduled_operation(data)
-          body = self.body('SetAddServerScheduledOperation').merge(
+          body = {
               :NewSchedulePlan => {
                   :FirstExecutionTime => data[:dateStart],
                   :LastExecutionTime => data[:endDate],
@@ -23,33 +22,23 @@ module Fog
                   :ServerID => data[:ServerId],
                   :ScheduledPlanStatus => 'Enabled'
               }
+          }
+          self.request(
+              body=body,
+              method_name='SetAddServerScheduledOperation',
+              failure_message='Error configuring Scheduled Operation.',
+              benchmark=true
           )
-          options = {
-              :http_method => :post,
-              :method => 'SetAddServerScheduledOperation',
-              :body => Fog::JSON.encode(body)
-          }
-
-          response = nil
-          time = Benchmark.realtime {
-            response = request(options)
-          }
-          Fog::Logger.debug("SetAddServerScheduledOperation time: #{time}")
-          if response['Success']
-            response
-          else
-            raise Fog::ArubaCloud::Errors::RequestError.new('Error during the Scheduled Operation creation.')
-          end
         end # create_scheduled_operation
-
-        class Mock
-          def create_scheduled_operation
-            raise Fog::Errors::MockNotImplemented.new(
-                      'Mock not implemented. Feel free to contribute.'
-                  )
-          end # create_scheduled_operation
-        end # Mock
       end # Real
+
+      class Mock
+        def create_scheduled_operation
+          raise Fog::Errors::MockNotImplemented.new(
+              'Mock not implemented. Feel free to contribute.'
+          )
+        end # create_scheduled_operation
+      end # Mock
     end # ArubaCloud
   end # Compute
 end # Fog
