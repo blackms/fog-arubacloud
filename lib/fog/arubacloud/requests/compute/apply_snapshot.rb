@@ -19,29 +19,17 @@ module Fog
           (service.servers).all.each do |server|
             id = server.id if (server.name).include? data[:name]
           end
-          body = self.body('SetEnqueueServerSnapshot').merge(
-              {
-                  :Snapshot => {
-                      :ServerId => id,
-                      :SnapshotOperationTypes => 'Restore'
-                  }
+          body = {
+              :Snapshot => {
+                  :ServerId => id,
+                  :SnapshotOperationTypes => 'Restore'
               }
+          }
+          self.request(
+                  body=body,
+                  method_name = 'SetEnqueueServerSnapshot',
+                  failure_message='Error while applying snapshot.'
           )
-          options = {
-              :http_method => :post,
-              :method => 'SetEnqueueServerSnapshot',
-              :body => Fog::JSON.encode(body)
-          }
-          response = nil
-          time = Benchmark.realtime {
-            response = request(options)
-          }
-          Fog::Logger.debug("SetEnqueueServerSnapshot time: #{time}")
-          if response['Success']
-            response
-          else
-            raise Fog::ArubaCloud::Errors::RequestError.new(response)
-          end
         end #Apply
       end #Real
       class Mock

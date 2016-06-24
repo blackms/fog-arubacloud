@@ -142,8 +142,8 @@ module Fog
       end
 
       class Mock < BaseObject
-        def initialize(options={})
-          super(options)
+        def initialize(*params)
+          super *params
         end
 
         def body(method)
@@ -151,13 +151,13 @@ module Fog
         end
 
         def request(body={}, method_name='', failure_message='', benchmark=true)
-          super(body={}, method_name='', failure_message='', benchmark=true)
+          super(body, method_name, failure_message, benchmark)
         end
       end #Mock
 
       class Real < BaseObject
-        def initialize(options={})
-          super(options)
+        def initialize(*params)
+          super *params
         end
 
         def body(method)
@@ -165,7 +165,7 @@ module Fog
         end
 
         def request(body={}, method_name='', failure_message='', benchmark=true)
-          super(body={}, method_name='', failure_message='', benchmark=true)
+          super(body, method_name, failure_message, benchmark)
         end
       end #Real
 
