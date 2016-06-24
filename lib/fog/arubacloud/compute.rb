@@ -112,23 +112,23 @@ module Fog
         end
       end
 
-      class Mock < BasicObject
+      class Mock < BaseObject
         def initialize(options={})
-          super
+          super(options)
         end
 
         def body(method)
-          super
+          super(method)
         end
       end #Mock
 
-      class Real < BasicObject
+      class Real < BaseObject
         def initialize(options={})
-          super
+          super(options)
         end
 
         def body(method)
-          super
+          super(method)
         end
       end #Real
 
