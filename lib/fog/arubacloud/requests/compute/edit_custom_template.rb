@@ -42,9 +42,9 @@ module Fog
               }
           }
           self.request(
-                  body=body,
-                  method_name='SetUpdatePersonalTemplate',
-                  failure_message='Error while editing custom template.'
+                  body,
+                  'SetUpdatePersonalTemplate',
+                  'Error while editing custom template.'
           )
         end # edit_custom_template
       end # Real

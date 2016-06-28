@@ -42,9 +42,9 @@ module Fog
               }
           }
           self.request(
-              body=body,
-              method_name='SetEnqueuePersonalTemplateCreation',
-              failure_message='Error while attempting to delete custom template.'
+              body,
+              'SetEnqueuePersonalTemplateCreation',
+              'Error while attempting to delete custom template.'
           )
         end # create_custom_template
       end # Real

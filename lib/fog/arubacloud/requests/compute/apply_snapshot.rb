@@ -27,7 +27,7 @@ module Fog
           }
           self.request(
                   body=body,
-                  method_name = 'SetEnqueueServerSnapshot',
+                  method_name='SetEnqueueServerSnapshot',
                   failure_message='Error while applying snapshot.'
           )
         end #Apply

@@ -143,7 +143,7 @@ module Fog
 
       class Mock < BaseObject
         def initialize(*params)
-          super *params
+          super(*params)
         end
 
         def body(method)
@@ -157,7 +157,7 @@ module Fog
 
       class Real < BaseObject
         def initialize(*params)
-          super *params
+          super(*params)
         end
 
         def body(method)
