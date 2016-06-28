@@ -60,14 +60,11 @@ module Fog
           super
         end
 
-        def action_hook(method, required_attr, expected_state, message)
-          if @service.respond_to? method
-            required_attr.each { |r| requires r }
-            unless state.eql? expected_state
-              raise Fog::ArubaCloud::Errors::VmStatus.new(message)
-            end
-            @service.send method, id
+        def action_hook(method, expected_state, message)
+          unless state.eql? expected_state
+            raise Fog::ArubaCloud::Errors::VmStatus.new(message)
           end
+          @service.send method, id
         end
 
         # Is server in ready state
@@ -158,25 +155,29 @@ module Fog
         end
 
         def power_off
-          self.action_hook(method=:power_off_vm,  required_attr=[:id, :state],  expected_state=RUNNING,
+          requires :id, :state
+          self.action_hook(method=:power_off_vm, expected_state=RUNNING,
                            message="Cannot poweroff vm in current state: #{state}"
           )
         end
 
         def power_on
-          self.action_hook(method=:power_on_vm, required_attr=[:id, :state], expected_state=STOPPED,
+          requires :id, :state
+          self.action_hook(method=:power_on_vm, expected_state=STOPPED,
                            message="Cannot poweron vm in current state: #{state}"
           )
         end
 
         def delete
-          self.action_hook(method=:delete_vm, required_attr=[:id], expected_state=STOPPED,
+          requires :id
+          self.action_hook(method=:delete_vm, expected_state=STOPPED,
                            message="Cannot delete vm in current state: #{state}"
           )
         end
 
         def reinitialize
-          self.action_hook(method=:reinitialize_vm, required_attr=[:id, :hypervisor], expected_state=STOPPED,
+          requires :id, :hypervisor
+          self.action_hook(method=:reinitialize_vm, expected_state=STOPPED,
                            message="Cannot reinitialize vm in current state: #{state}"
           )
         end
@@ -206,7 +207,8 @@ module Fog
         end
 
         def apply_snapshot
-          self.action_hook(method=:apply_snapshot, required_attr=[:id], expected_state=STOPPED,
+          requires :id
+          self.action_hook(method=:apply_snapshot, expected_state=STOPPED,
                            message="Cannot restore vm in current state: #{state}"
           )
         end

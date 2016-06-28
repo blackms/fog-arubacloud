@@ -15,7 +15,7 @@ module Fog
     class ArubaCloud
 
       class Real
-        def edit_custom_template(data)
+        def manage_custom_template(data, action='create')
           body = {
               :template => {
                   :ApplianceTypeID => data[:ApplianceTypeID],
@@ -41,10 +41,19 @@ module Fog
                   :VirtualMachineID => data[:VirtualMachineID]
               }
           }
+          if action.eql? 'create'
+            method_to_call = 'SetEnqueuePersonalTemplateCreation'
+            error_message = 'Error while attempting to delete custom template.'
+          elsif action.eql? 'edit'
+            method_to_call = 'SetUpdatePersonalTemplate'
+            error_message = 'Error while editing custom template.'
+          else
+            raise Fog::ArubaCloud::Errors::BadParameters.new('Action must be create or edit')
+          end
           self.request(
                   body,
-                  'SetUpdatePersonalTemplate',
-                  'Error while editing custom template.'
+                  method_to_call,
+                  error_message
           )
         end # edit_custom_template
       end # Real

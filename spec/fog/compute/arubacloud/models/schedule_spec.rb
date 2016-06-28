@@ -17,6 +17,10 @@ describe Fog::Compute::ArubaCloud::Schedule do
   #let(:service) { Object.new }
   let(:schedule) { Fog::Compute::ArubaCloud::Schedule.new }
 
+  before :each do
+    Fog.unmock!
+  end
+
   it 'should have an unique id' do
     schedule_class.read_identity.must_equal(:id)
   end
@@ -72,6 +76,7 @@ describe Fog::Compute::ArubaCloud::Schedule do
     end
   end
 
+=begin
   describe '#create_scheduled_operation' do
     before :each do
       schedule.ServerId = 12342
@@ -94,4 +99,5 @@ describe Fog::Compute::ArubaCloud::Schedule do
       end
     end
   end
+=end
 end

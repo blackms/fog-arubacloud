@@ -22,9 +22,9 @@ module Fog
               }
           }
           self.request(
-                  body=body,
-                  method_name='SetRemovePersonalTemplate',
-                  failure_message='Error while attempting to delete custom template.'
+              body=body,
+              method_name='SetRemovePersonalTemplate',
+              failure_message='Error while attempting to delete custom template.'
           )
         end # delete_custom_template
       end # Real

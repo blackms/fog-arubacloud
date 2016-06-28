@@ -82,7 +82,6 @@ module Fog
       request :get_notifications
       request :add_contact
       request :remove_contact
-      request :create_custom_template
       request :edit_custom_template
       request :delete_custom_template
       request :get_custom_templates

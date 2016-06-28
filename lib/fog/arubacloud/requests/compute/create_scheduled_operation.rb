@@ -33,10 +33,20 @@ module Fog
       end # Real
 
       class Mock
-        def create_scheduled_operation
-          raise Fog::Errors::MockNotImplemented.new(
-              'Mock not implemented. Feel free to contribute.'
-          )
+        def create_scheduled_operation(data)
+          unless data['ServerId']
+            raise ArgumentError
+          end
+          self.servers.select!{|s| s.id.eql?(data['ServerId'])}
+          response = Excon::Response.new
+          response.status = 200
+          response.body = {
+              'ExceptionInfo' => nil,
+              'ResultCode' => 0,
+              'ResultMessage' => nil,
+              'Success' => true
+          }
+          response.body
         end # create_scheduled_operation
       end # Mock
     end # ArubaCloud

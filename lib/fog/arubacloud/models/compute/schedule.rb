@@ -50,7 +50,7 @@ module Fog
 
         def create_scheduled_operation
           requires :dateStart, :dateEnd, :OperationType, :ServerId
-          data = :attributes
+          data = attributes
           service.create_scheduled_operation(data)
         end # create_schedule_operation
 
