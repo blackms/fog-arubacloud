@@ -38,8 +38,6 @@ module Fog
         # the mock method of the request. I will introduce it in the next version after structuring the mock
         # objects in a more reasonable way.
         #
-
-
       def get_hypervisors
           raise Fog::Errors::MockNotImplemented.new(
               'Mock object for get_hypervisor not present, read code comments for details.'

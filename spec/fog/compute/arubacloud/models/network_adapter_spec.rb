@@ -1,6 +1,5 @@
-require 'spec_helper'
+require File.expand_path('spec/spec_helper')
 require 'fog/arubacloud/models/compute/network_adapter'
-require 'fog/arubacloud'
 
 describe Fog::Compute::ArubaCloud::NetworkAdapter do
   include ModelSetup

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require File.expand_path('spec/spec_helper')
 require 'fog/arubacloud/models/compute/network_adapters'
 
 describe Fog::Compute::ArubaCloud::NetworkAdapters do
