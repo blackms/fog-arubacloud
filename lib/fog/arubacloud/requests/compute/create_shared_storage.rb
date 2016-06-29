@@ -15,45 +15,40 @@ module Fog
     class ArubaCloud
       class Real
         def create_shared_storage(data)
-          body = self.body('SetEnqueuePurchaseSharedStorage').merge(
-              {
-                  :SharedStorage => {
-                      :Quantity => data[:quantity],
-                      :SharedStorageName => data[:sharedstoragename],
-                      :SharedStorageProtocolType => data[:sharedstorageprotocoltype],
-                  }
+          body = {
+              :SharedStorage => {
+                  :Quantity => data[:quantity],
+                  :SharedStorageName => data[:sharedstoragename],
+                  :SharedStorageProtocolType => data[:sharedstorageprotocoltype],
               }
-          )
+          }
           unless data[:sharedstorageprotocoltype].include? 'ISCSI'
             body[:SharedStorage] << {
                 :Value => data[:Value]
             }
           end
-          options = {
-              :http_method => :post,
-              :method => 'SetEnqueuePurchaseSharedStorage',
-              :body => Fog::JSON.encode(body)
-          }
-          response = nil
-          time = Benchmark.realtime {
-            response = request(options)
-          }
-          Fog::Logger.debug("SetEnqueuePurchaseSharedStorage time: #{time}")
-          if response['Success']
-            response
-          else
-            raise Fog::ArubaCloud::Errors::RequestError.new('Error in request.')
-          end
-
-        end # create_shared_storage
-        class Mock
-          def create_shared_storage
-            raise Fog::Errors::MockNotImplemented.new(
-                      'Mock not implemented. Feel free to contribute.'
-                  )
-          end # create_shared_storage
-        end # Mock
+          self.request(
+              body,
+              'SetEnqueuePurchaseSharedStorage',
+              'Error during Shared Storage creation.'
+          )
+        end
       end # Real
+
+      class Mock
+        def create_shared_storage(data)
+          response = Excon::Response.new
+          response.status = 200
+          response.body = {
+              'ExceptionInfo' => nil,
+              'ResultCode' => 0,
+              'ResultMessage' => nil,
+              'Success' => true
+          }
+          response.body
+        end # create_shared_storage
+      end # Mock
+
     end # ArubaCloud
   end # Compute
 end # Fog

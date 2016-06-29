@@ -82,7 +82,7 @@ module Fog
       request :get_notifications
       request :add_contact
       request :remove_contact
-      request :edit_custom_template
+      request :manage_custom_template
       request :delete_custom_template
       request :get_custom_templates
       request :get_shared_storage
@@ -126,15 +126,16 @@ module Fog
           response = nil
           if benchmark
             time = Benchmark.realtime {
-              response = request(options)
+              response = _request(options)
             }
             Fog::Logger.debug("#{options[:method]} took: #{time}")
           else
-            response = request(options)
+            response = _request(options)
           end
           if response['Success']
             response
           else
+            Fog::Logger.debug("Request failed. Debug: #{response}")
             raise Fog::ArubaCloud::Errors::RequestError.new(failure_message)
           end
         end

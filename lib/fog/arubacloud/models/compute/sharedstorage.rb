@@ -26,10 +26,10 @@ module Fog
 
         def create
           requires :sharedstorageprotocoltype, :quantity, :sharedstoragename
-          if :sharedstorageprotocoltype == 'ISCSI'
+          if :sharedstorageprotocoltype.upcase == 'ISCSI'
             requires :value
           end
-          data = :attributes
+          data = attributes
           service.create_shared_storage(data)
         end # create
 

@@ -16,7 +16,7 @@ module Fog
         @ws_enduser_url = url || Fog::ArubaCloud::DEFAULT_WS_ENDUSER_URL
       end
 
-      def request(options)
+      def _request(options)
         http_method = options[:http_method] || :get
         @request_url = "#{@ws_enduser_url}/#{options[:method]}"
 

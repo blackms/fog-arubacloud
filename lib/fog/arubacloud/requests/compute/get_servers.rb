@@ -15,22 +15,8 @@ module Fog
 
       class Real
         def get_servers
-          body = self.body('GetServers')
-          options = {
-              :http_method => :post,
-              :method => 'GetServers',
-              :body => Fog::JSON.encode(body)
-          }
-          response = nil
-          time = Benchmark.realtime {
-            response = request(options)
-          }
-          Fog::Logger.debug("GetServer time: #{time}")
-          if response['Success']
-            response
-          else
-            raise Fog::ArubaCloud::Errors::RequestError.new(response)
-          end
+          body = {}
+          self.request(body, 'GetServers', 'Error retrieving server list.')
         end # get_servers
       end # Real
 
