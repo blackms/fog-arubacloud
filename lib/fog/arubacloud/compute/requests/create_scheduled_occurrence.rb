@@ -11,8 +11,8 @@ require 'benchmark'
 
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Real
         def create_scheduled_occurence(data)
           body = self.body('SetAddServerScheduledOperation').merge(

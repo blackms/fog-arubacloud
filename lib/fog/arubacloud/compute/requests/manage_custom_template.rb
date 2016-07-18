@@ -11,8 +11,8 @@ require 'benchmark'
 
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
 
       class Real
         def manage_custom_template(data, action='create')

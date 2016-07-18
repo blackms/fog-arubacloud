@@ -10,8 +10,8 @@ require 'fog/arubacloud/error'
 require 'benchmark'
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
 
       # noinspection RubyResolve
       class Real

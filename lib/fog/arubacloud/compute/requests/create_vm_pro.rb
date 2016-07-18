@@ -9,8 +9,8 @@ require 'fog/arubacloud/service'
 require 'benchmark'
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Real
         # Create a new VM: Pro.
         # @param [String] name name of the server

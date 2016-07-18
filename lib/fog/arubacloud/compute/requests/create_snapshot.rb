@@ -11,8 +11,8 @@ require 'benchmark'
 
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
 
       class Real
         # Create a new snapshot of a VM

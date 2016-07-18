@@ -10,8 +10,8 @@ require 'fog/arubacloud/error'
 require 'benchmark'
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Real
         def get_scheduled_operations(datestart, dateend)
           body = self.body('GetScheduledOperations').merge({:dateStart => datestart, :dateEnd => dateend})

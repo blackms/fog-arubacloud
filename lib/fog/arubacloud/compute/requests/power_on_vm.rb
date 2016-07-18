@@ -8,8 +8,8 @@
 require 'fog/arubacloud/service'
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Real
         def power_on_vm(id)
           body = self.body('SetEnqueueServerStart').merge({:ServerId => "#{id}"})

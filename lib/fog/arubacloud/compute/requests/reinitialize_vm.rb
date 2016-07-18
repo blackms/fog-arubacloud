@@ -9,8 +9,8 @@ require 'fog/arubacloud/service'
 require 'benchmark'
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Real
         # Reinitialize a Smart VM
         # @param id [String] the id of the virtual machine to reinitialize

@@ -11,8 +11,8 @@ require 'benchmark'
 
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Real
         def restore_vm(data)
           (service.servers).all.each do |server|

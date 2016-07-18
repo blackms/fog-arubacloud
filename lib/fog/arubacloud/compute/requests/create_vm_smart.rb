@@ -8,8 +8,8 @@
 require 'fog/arubacloud/service'
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Real
         # Create a new VM: Smart.
         # @param [String] name name of the server

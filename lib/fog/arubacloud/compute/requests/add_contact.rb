@@ -11,8 +11,8 @@ require 'benchmark'
 
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Real
         def add_contact(data)
           body = self.body('SetAddLoadBalancerContacts').merge(

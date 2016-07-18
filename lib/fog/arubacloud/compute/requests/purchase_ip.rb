@@ -8,8 +8,8 @@
 require 'fog/arubacloud/service'
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Real
         def purchase_ip
           body = self.body('SetPurchaseIpAddress')

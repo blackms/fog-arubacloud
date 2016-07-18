@@ -11,8 +11,8 @@ require 'benchmark'
 
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Real
         def rename_shared_storage(data)
           body = self.body('SetRenameSharedStorage').merge(

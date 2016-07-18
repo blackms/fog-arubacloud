@@ -9,8 +9,8 @@ require 'fog/arubacloud/service'
 require 'fog/arubacloud/error'
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
 
       class Real
         def power_off_vm(id)

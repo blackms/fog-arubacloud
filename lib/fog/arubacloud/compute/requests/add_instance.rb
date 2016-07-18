@@ -11,8 +11,8 @@ require 'benchmark'
 
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Real
         def add_instance(data)
           body = self.body('SetEnqueueLoadBalancerAddInstances').merge(

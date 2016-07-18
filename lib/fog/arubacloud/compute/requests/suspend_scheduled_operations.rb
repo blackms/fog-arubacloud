@@ -11,8 +11,8 @@ require 'benchmark'
 
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Real
         def suspend_scheduled_operations(operationid)
           body = self.body('SetUpdateServerScheduledOperation').merge({:operationid => operationid})

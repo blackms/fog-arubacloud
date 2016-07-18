@@ -11,8 +11,8 @@ require 'benchmark'
 
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Real
         def delete_scheduled_operation(operationid)
           body = self.body('SetRemoveServerScheduledOperation').merge({:operationid => operationid})
