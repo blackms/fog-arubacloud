@@ -9,8 +9,8 @@ require 'fog/arubacloud/service'
 require 'benchmark'
 
 module Fog
-  module Compute
-    class ArubaCloud < Fog::Service
+  module ArubaCloud
+    class Compute < Fog::Service
 
       # Define global constant to enumerate service type (We will need them in Vagrant :P)
       PRO_HV    = 1
@@ -22,7 +22,7 @@ module Fog
       requires :arubacloud_username, :arubacloud_password
 
       # Models
-      model_path 'fog/arubacloud/models/compute'
+      model_path 'fog/arubacloud/compute/models'
       collection :servers
       model      :server
       collection :ips
@@ -45,7 +45,7 @@ module Fog
       model      :sharedstorage
 
       # Requests
-      request_path 'fog/arubacloud/requests/compute'
+      request_path 'fog/arubacloud/compute/requests'
       request :power_on_vm
       request :power_off_vm
       request :get_servers

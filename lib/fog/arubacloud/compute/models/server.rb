@@ -9,8 +9,8 @@ require 'fog/compute/models/server'
 require 'fog/arubacloud/error'
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       # noinspection RubyTooManyMethodsInspection
       class Server < Fog::Compute::Server
         CREATING = 1

@@ -6,14 +6,14 @@
 #
 
 require 'fog/core/collection'
-require 'fog/arubacloud/models/compute/network_adapter'
+require 'fog/arubacloud/compute/models/network_adapter'
 
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class NetworkAdapters < Fog::Collection
-        model Fog::Compute::ArubaCloud::NetworkAdapter
+        model Fog::ArubaCloud::Compute::NetworkAdapter
       end
     end
   end

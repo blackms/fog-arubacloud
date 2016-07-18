@@ -9,8 +9,8 @@ require 'fog/core/model'
 require 'fog/arubacloud/error'
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class IP < Fog::Model
         identity :id, :aliases => 'ResourceId'
 

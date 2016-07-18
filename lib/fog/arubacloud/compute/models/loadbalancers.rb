@@ -6,14 +6,14 @@
 #
 
 require 'fog/core/collection'
-require 'fog/arubacloud/models/compute/loadbalancer'
+require 'fog/arubacloud/compute/models/loadbalancer'
 
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class LoadBalancers < Fog::Collection
-        model Fog::Compute::ArubaCloud::LoadBalancer
+        model Fog::ArubaCloud::Compute::LoadBalancer
       end # Load Balancers
     end # ArubaCloud
   end # Compute

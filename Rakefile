@@ -40,7 +40,7 @@ namespace :test do
   mock = 'true' || ENV['FOG_MOCK']
   task :travis do
     ENV['COVERAGE'] = 'false' if RUBY_PLATFORM == 'java'
-    sh("export FOG_MOCK=#{mock} && bundle exec shindont")
+    sh("export FOG_MOCK=#{mock} && bundle exec rake")
   end
 end
 

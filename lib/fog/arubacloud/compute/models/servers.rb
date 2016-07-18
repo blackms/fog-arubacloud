@@ -6,14 +6,14 @@
 #
 
 require 'fog/core/collection'
-require 'fog/arubacloud/models/compute/server'
+require 'fog/arubacloud/compute/models/server'
 
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Servers < Fog::Collection
-        model Fog::Compute::ArubaCloud::Server
+        model Fog::ArubaCloud::Compute::Server
 
         # Returns list of servers
         # @return [Fog::Compute::ArubaCloud::Servers] Retrieves a list servers.

@@ -10,8 +10,8 @@ require 'fog/arubacloud/error'
 
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class SharedStorage < Fog::Model
         identity :id, :aliases => 'id'
 

@@ -8,8 +8,8 @@
 require 'fog/core/model'
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
 
       class Template < Fog::Model
         identity :id, :aliases => 'Id'

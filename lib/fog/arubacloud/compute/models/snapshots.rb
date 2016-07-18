@@ -6,13 +6,13 @@
 #
 
 require 'fog/core/collection'
-require 'fog/arubacloud/models/compute/snapshot'
+require 'fog/arubacloud/compute/models/snapshot'
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Snapshots < Fog::Collection
-        model Fog::Compute::ArubaCloud::Snapshot
+        model Fog::ArubaCloud::Compute::Snapshot
       end
     end
   end

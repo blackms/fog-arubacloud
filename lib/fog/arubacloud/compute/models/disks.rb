@@ -6,13 +6,13 @@
 #
 
 require 'fog/core/collection'
-require 'fog/arubacloud/models/compute/ip'
+require 'fog/arubacloud/compute/models/ip'
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Disks < Fog::Collection
-        model Fog::Compute::ArubaCloud::Disk
+        model Fog::ArubaCloud::Compute::Disk
 
         # Dummy Method, only to maintain fog structure, it returns nothings.
         # @return [Nil]

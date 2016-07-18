@@ -6,13 +6,13 @@
 #
 
 require 'fog/core/collection'
-require 'fog/arubacloud/models/compute/custom_templates'
+require 'fog/arubacloud/compute/models/custom_templates'
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Custom_Templates < Fog::Collection
-        model Fog::Compute::ArubaCloud::Custom_Templates
+        model Fog::ArubaCloud::Compute::Custom_Templates
       end
     end
   end

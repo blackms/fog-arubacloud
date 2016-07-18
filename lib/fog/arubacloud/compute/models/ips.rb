@@ -6,14 +6,14 @@
 #
 
 require 'fog/core/collection'
-require 'fog/arubacloud/models/compute/ip'
+require 'fog/arubacloud/compute/models/ip'
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
 
       class Ips < Fog::Collection
-        model Fog::Compute::ArubaCloud::IP
+        model Fog::ArubaCloud::Compute::IP
 
         # Returns list of Ip Addresses
         # @return [Fog::Compute::ArubaCloud::Ips]

@@ -6,14 +6,14 @@
 #
 
 require 'fog/core/collection'
-require 'fog/arubacloud/models/compute/template'
+require 'fog/arubacloud/compute/models/template'
 
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Templates < Fog::Collection
-        model Fog::Compute::ArubaCloud::Template
+        model Fog::ArubaCloud::Compute::Template
 
         # Returns list of Template
         # @return [Fog::Compute::ArubaCloud::Template] Retrieves the complete Templates list.

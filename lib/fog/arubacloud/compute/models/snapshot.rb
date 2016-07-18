@@ -5,12 +5,11 @@
 # LICENSE: MIT (http://opensource.org/licenses/MIT)
 #
 
-require 'fog/arubacloud/models/compute/snapshot'
 require 'fog/arubacloud/error'
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Snapshot < Fog::Model
         CREATING = 'Create'
         APPLYING = 'Restore'

@@ -6,13 +6,13 @@
 #
 
 require 'fog/core/collection'
-require 'fog/arubacloud/models/compute/schedule'
+require 'fog/arubacloud/compute/models/schedule'
 
 module Fog
-  module Compute
-    class ArubaCloud
+  module ArubaCloud
+    class Compute
       class Schedules < Fog::Collection
-        model Fog::Compute::ArubaCloud::Schedules
+        model Fog::ArubaCloud::Compute::Schedules
       end
     end
   end
