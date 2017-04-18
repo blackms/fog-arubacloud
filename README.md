@@ -1,5 +1,7 @@
 # Fog::Arubacloud
 
+[![Join the chat at https://gitter.im/fog/fog-arubacloud](https://badges.gitter.im/fog/fog-arubacloud.svg)](https://gitter.im/fog/fog-arubacloud?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Code Climate](https://codeclimate.com/github/fog/fog-arubacloud/badges/gpa.svg)](https://codeclimate.com/github/fog/fog-arubacloud)
 [![Test Coverage](https://codeclimate.com/github/fog/fog-arubacloud/badges/coverage.svg)](https://codeclimate.com/github/fog/fog-arubacloud/coverage)
 [![Gitter](https://badges.gitter.im/fog/fog-arubacloud.svg)](https://gitter.im/fog/fog-arubacloud?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
